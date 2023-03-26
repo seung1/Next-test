@@ -8,10 +8,10 @@ const SearchBox = () => {
     return (<>
         <Box >
             <Grid >
-                <TextField sx={{ width: '100%', m: 2 }} id="search" label="위스키 검색" />
+                <TextField sx={{ width: { xs: '90vw', md: '40vw' }, m: 2 }} id="search" label="위스키 검색" />
             </Grid>
-            <Grid >
-                <Box >
+            <Grid sx={{ backgroundColor: 'red' }} >
+                <Box sx={{ height: '100%', }}>
                     {searchResult.map((item) => (
                         <Button>{item}</Button>
                     ))}
