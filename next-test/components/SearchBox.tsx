@@ -1,148 +1,18 @@
-import { TextFields } from "@mui/icons-material";
 import {
-  Autocomplete,
   Box,
-  Button,
-  Chip,
-  ChipProps,
   Divider,
-  Grid,
   IconButton,
   InputBase,
-  ListItem,
   ListItemButton,
-  ListItemText,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useState, KeyboardEvent } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import getDataList from "@/data/getDataList";
 
 const SearchBox = () => {
-  const getTestData = () => [
-    {
-      title: "2023 드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰한번 해봄",
-      recommendCount: 235,
-      commentCount: 312,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰한번 해봄",
-      recommendCount: 235,
-      commentCount: 312,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰한번 해봄",
-      recommendCount: 235,
-      commentCount: 312,
-      createdAt: "2023-04-04",
-    },
-    {
-      title:
-        "드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰라는 걸 한번 해봄 근데 생각보다 맛이 없고 왜 유명한지 잘 모르겠어",
-      recommendCount: 235,
-      commentCount: 312,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 255,
-      commentCount: 1323,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 12,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 122,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 35,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 300,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-    {
-      title: "드로낙 리뷰",
-      recommendCount: 2,
-      commentCount: 3,
-      createdAt: "2023-04-04",
-    },
-  ];
+  const { getTestData } = getDataList();
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -157,8 +27,11 @@ const SearchBox = () => {
 
   return (
     <>
-      <Box sx={{ backgroundColor: "#B6C5B8" }}>
-        <Typography variant="h5" sx={{ fontWeight: 700, my: 2 }}>
+      <Box sx={{ backgroundColor: "#F2EDD7" }}>
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: 700, my: 2, color: "#755139" }}
+        >
           Whiskey Gallery Review Search
         </Typography>
         <Box sx={{ mb: 2 }}>
@@ -234,12 +107,8 @@ const SearchBox = () => {
               }}
             >
               {[...getTestData()].map((item, index) => (
-                <>
-                  <ListItemButton
-                    key={index}
-                    title={item.title}
-                    sx={{ gap: 1, px: 0.5, py: 0.5 }}
-                  >
+                <Box key={index}>
+                  <ListItemButton title={item.title} sx={{ gap: 1, p: 0.5 }}>
                     <Box
                       sx={{
                         display: "-webkit-box",
@@ -270,7 +139,7 @@ const SearchBox = () => {
                     </Box>
                   </ListItemButton>
                   <Divider />
-                </>
+                </Box>
               ))}
             </Box>
           </Box>

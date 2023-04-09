@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import {
   Box,
@@ -20,11 +19,8 @@ import {
   useTheme,
 } from "@mui/material";
 import SearchBox from "@/components/SearchBox";
-import ReviewBox from "@/components/ReviewBox";
 import ReviewStepper from "@/components/organisms/ReviewStepper";
 import { useState } from "react";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -40,7 +36,7 @@ export default function Home() {
         container
         sx={{
           display: "flex",
-          backgroundColor: "#B6C5B8",
+          backgroundColor: "#F2EDD7",
           width: "100%",
           height: "100vh",
           justifyContent: "space-evenly",

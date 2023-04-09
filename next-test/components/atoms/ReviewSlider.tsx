@@ -17,16 +17,16 @@ const ReviewSlider = ({
   return (
     <Box
       sx={{
-        width: "350px",
+        width: "100%",
         display: "flex",
-        gap: 2.5,
+        gap: 1.5,
         px: 1,
         alignItems: "center",
         height: "24px",
         mb: 0.5,
       }}
     >
-      <Box sx={{ whiteSpace: "nowrap", minWidth: "85px", textAlign: "center" }}>
+      <Box sx={{ whiteSpace: "nowrap", minWidth: "70px", textAlign: "center" }}>
         <Typography variant="subtitle2" sx={{ fontSize: "12px" }}>
           {title}
         </Typography>
