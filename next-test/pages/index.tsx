@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import SearchBox from "@/components/SearchBox";
 import ReviewBox from "@/components/ReviewBox";
+import ReviewStepper from "@/components/organisms/ReviewStepper";
 import { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -57,13 +58,13 @@ export default function Home() {
         </Grid>
         <Grid
           item
-          xs={10}
+          xs={11}
           md={5}
           sx={{
             display: isMobile ? (isSearchBox ? "none" : "block") : "block",
           }}
         >
-          <ReviewBox />
+          <ReviewStepper />
         </Grid>
 
         <Grid
@@ -84,12 +85,13 @@ export default function Home() {
               sx={{
                 display: "flex",
                 position: "absolute",
-                bottom: "0px",
-                p: "8px 16px",
+                bottom: "10px",
+                p: "4px 12px",
                 alignItems: "center",
                 gap: 1,
                 cursor: "pointer",
-                width: "160px",
+                width: "150px",
+                fontSize: "14px",
               }}
             >
               {isSearchBox ? (

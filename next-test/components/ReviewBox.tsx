@@ -4,52 +4,24 @@ import {
   AccordionSummary,
   Box,
   Button,
-  Chip,
-  ChipProps,
-  Divider,
-  Grid,
-  IconButton,
   InputBase,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Rating from "@mui/material/Rating";
+import ReviewSlider from "./atoms/ReviewSlider";
 
 const ReviewBox = () => {
+  const handleDeleteElement = () => {
+    console.log("요소 삭제");
+  };
+
   return (
     <Box>
-      <Grid
-        sx={{
-          display: "flex",
-          gap: 1,
-          my: 4,
-          justifyContent: "center",
-        }}
-      >
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            // width: '700px'
-            flex: 1,
-            // boxShadow: 'none'
-          }}
-        >
-          <InputBase placeholder="Whiskey" sx={{ ml: 1, flex: 2 }} />
-          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-          <InputBase placeholder="ABV" sx={{ ml: 1, flex: 1 }} />
-          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-          <InputBase placeholder="WB code" sx={{ ml: 1, flex: 1 }} />
-        </Paper>
-      </Grid>
       <Box
         sx={{
           display: "flex",
-          height: "25vh",
+          height: "27vh",
           justifyContent: "space-evenly",
           mb: 1,
         }}
@@ -63,11 +35,18 @@ const ReviewBox = () => {
         <Box
           sx={{
             backgroundColor: "lightgreen",
-            width: "50%",
+            width: "60%",
+            py: 1,
           }}
         >
-          <Rating name="size-large" defaultValue={2} max={10} size="small" />
-          <Rating name="silarge" defaultValue={7} max={10} size="small" />
+          <ReviewSlider title={"오렌지 껍질"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"사과"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"커피"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"식빵"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"꿀"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"담배"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"메이플시럽"} onClick={handleDeleteElement} />
+          <ReviewSlider title={"솔향"} onClick={handleDeleteElement} />
         </Box>
       </Box>
       <Box sx={{ mb: 1 }}>
@@ -91,14 +70,13 @@ const ReviewBox = () => {
             placeholder="Comment"
             sx={{ ml: 1, flex: 1 }}
             multiline
-            maxRows={4}
-            rows={4}
+            rows={3}
           />
         </Paper>
       </Box>
       <Box
         sx={{
-          height: "40vh",
+          height: "35vh",
           justifyContent: "center",
           backgroundColor: "lightblue",
           width: "100%",

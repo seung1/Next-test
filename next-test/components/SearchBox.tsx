@@ -20,14 +20,28 @@ import { useState, KeyboardEvent } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBox = () => {
-  const [searchResult, setSearchResult] = useState([
-    "검색조건1",
-    "검색조건2",
-    "검색조건3",
-  ]);
   const getTestData = () => [
     {
+      title: "2023 드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰한번 해봄",
+      recommendCount: 235,
+      commentCount: 312,
+      createdAt: "2023-04-04",
+    },
+    {
       title: "드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰한번 해봄",
+      recommendCount: 235,
+      commentCount: 312,
+      createdAt: "2023-04-04",
+    },
+    {
+      title: "드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰한번 해봄",
+      recommendCount: 235,
+      commentCount: 312,
+      createdAt: "2023-04-04",
+    },
+    {
+      title:
+        "드로낙 리뷰) 드로낙이라는 걸 처음 먹어보는데 리뷰라는 걸 한번 해봄 근데 생각보다 맛이 없고 왜 유명한지 잘 모르겠어",
       recommendCount: 235,
       commentCount: 312,
       createdAt: "2023-04-04",
@@ -143,24 +157,22 @@ const SearchBox = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          backgroundColor: "#B6C5B8",
-        }}
-      >
-        <Box sx={{ my: 4 }}>
+      <Box sx={{ backgroundColor: "#B6C5B8" }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, my: 2 }}>
+          Whiskey Gallery Review Search
+        </Typography>
+        <Box sx={{ mb: 2 }}>
           <Paper
             component="form"
             sx={{
-              p: "2px 4px",
+              p: "0 4px",
               display: "flex",
               alignItems: "center",
-              // boxShadow: 'none'
             }}
           >
             <InputBase
               type="search"
-              placeholder="검색어를 입력하세요."
+              placeholder="리뷰를 검색하세요."
               sx={{ ml: 1, flex: 1 }}
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
@@ -168,7 +180,7 @@ const SearchBox = () => {
             />
             <IconButton
               type="button"
-              sx={{ p: "10px" }}
+              sx={{ p: "8px" }}
               aria-label="search"
               onClick={() => setSearchQuery(searchInput)}
             >
@@ -176,20 +188,24 @@ const SearchBox = () => {
             </IconButton>
           </Paper>
         </Box>
-        <Box>{` "${searchQuery}" 에 대한 검색 결과`}</Box>
+        <Typography
+          variant="subtitle2"
+          sx={{ fontWeight: 700 }}
+        >{` "${searchQuery}" 에 대한 검색 결과`}</Typography>
         <Box>
           <Box
             sx={{
               backgroundColor: "white",
-              borderRadius: 3,
+              borderRadius: 1.5,
               width: { xs: "90vw", md: "42vw" },
-              height: { xs: "70vh", md: "78vh" },
+              height: { xs: "75vh", md: "78vh" },
             }}
           >
             <Box
               id="list label"
               sx={{
                 display: "flex",
+                fontSize: "15px",
                 fontWeight: 700,
                 gap: 1,
                 p: "8px 16px 0",
@@ -197,19 +213,16 @@ const SearchBox = () => {
               }}
             >
               <Box sx={{ flexGrow: 1 }}>제목</Box>
-              <Box sx={{ minWidth: "40px" }}>추천수</Box>
-              <Box sx={{ minWidth: "40px" }}>댓글수</Box>
-              <Box sx={{ minWidth: "85px", whiteSpace: "nowrap" }}>작성일</Box>
+              <Box sx={{ minWidth: "30px" }}>추천수</Box>
+              <Box sx={{ minWidth: "30px" }}>댓글수</Box>
+              <Box sx={{ minWidth: "80px", whiteSpace: "nowrap" }}>작성일</Box>
             </Box>
             <Box
               sx={{
-                // width: { xs: '90vw', md: '42vw' },
-                height: { xs: "65vh", md: "75vh" },
+                height: { xs: "70vh", md: "73vh" },
                 overflow: "auto",
-                // backgroundColor: "white",
-                // borderRadius: 3,
                 position: "relative",
-                p: "6px 12px 12px",
+                p: "6px 6px 10px 12px",
                 "&::-webkit-scrollbar": {
                   width: "12px",
                   backgroundColor: "lightgray",
@@ -225,7 +238,7 @@ const SearchBox = () => {
                   <ListItemButton
                     key={index}
                     title={item.title}
-                    sx={{ gap: 1, px: 0 }}
+                    sx={{ gap: 1, px: 0.5, py: 0.5 }}
                   >
                     <Box
                       sx={{
@@ -238,12 +251,22 @@ const SearchBox = () => {
                         flexGrow: 1,
                       }}
                     >
-                      {item.title}
+                      <Typography variant="subtitle2">{item.title}</Typography>
                     </Box>
-                    <Box sx={{ minWidth: "40px" }}>{item.recommendCount}</Box>
-                    <Box sx={{ minWidth: "40px" }}>{item.commentCount}</Box>
-                    <Box sx={{ minWidth: "85px", whiteSpace: "nowrap" }}>
-                      {item.createdAt}
+                    <Box sx={{ minWidth: "30px" }}>
+                      <Typography variant="subtitle2">
+                        {item.recommendCount}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ minWidth: "30px" }}>
+                      <Typography variant="subtitle2">
+                        {item.commentCount}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ minWidth: "80px", whiteSpace: "nowrap" }}>
+                      <Typography variant="subtitle2">
+                        {item.createdAt}
+                      </Typography>
                     </Box>
                   </ListItemButton>
                   <Divider />
