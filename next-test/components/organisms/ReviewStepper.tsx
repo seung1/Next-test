@@ -51,7 +51,10 @@ export default function HorizontalLinearStepper() {
 
   return (
     <Box sx={{ width: "100%", pt: 2 }}>
-      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+      <Typography
+        variant="h5"
+        sx={{ fontWeight: 700, mb: 2, color: "#755139" }}
+      >
         My Whiskey Review
       </Typography>
       <Paper
