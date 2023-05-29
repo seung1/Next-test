@@ -12,7 +12,7 @@ const ReviewSlider = ({
   onClick,
 }: {
   title: string;
-  onClick: () => void;
+  onClick: (value: string) => void;
 }) => {
   return (
     <Box
@@ -20,13 +20,13 @@ const ReviewSlider = ({
         width: "100%",
         display: "flex",
         gap: 1.5,
-        px: 1,
+        px: 2,
         alignItems: "center",
         height: "24px",
         mb: 0.5,
       }}
     >
-      <Box sx={{ whiteSpace: "nowrap", minWidth: "70px", textAlign: "center" }}>
+      <Box sx={{ whiteSpace: "nowrap", minWidth: "56px", textAlign: "center" }}>
         <Typography variant="subtitle2" sx={{ fontSize: "12px" }}>
           {title}
         </Typography>
@@ -38,10 +38,11 @@ const ReviewSlider = ({
         step={1}
         marks
         min={1}
-        max={10}
+        max={5}
+        sx={{ color: "#755139" }}
       />
       <CloseIcon
-        onClick={onClick}
+        onClick={() => onClick(title)}
         sx={{ color: "gray", fontSize: "20px", cursor: "pointer" }}
       />
     </Box>

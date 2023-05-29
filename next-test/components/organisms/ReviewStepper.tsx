@@ -55,7 +55,7 @@ export default function HorizontalLinearStepper() {
         variant="h5"
         sx={{ fontWeight: 700, mb: 2, color: "#755139" }}
       >
-        My Whiskey Review
+        리뷰 작성하기
       </Typography>
       <Paper
         component="form"
@@ -88,28 +88,41 @@ export default function HorizontalLinearStepper() {
       </Stepper>
       {activeStep === steps.length ? (
         <Box>
-          <Typography sx={{ mt: 2, mb: 1 }}>
+          <Typography sx={{ mt: 2, mb: 1, color: "black" }}>
             여기에 이제 사진으로 다운 받을 수 있게
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Button
+              onClick={handleReset}
+              sx={{ color: "#755139", fontWeight: 700, textTransform: "none" }}
+            >
+              Download
+            </Button>
           </Box>
         </Box>
       ) : (
         <Box>
           <ReviewBox />
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 1 }}>
             <Button
               color="inherit"
               disabled={activeStep === 0}
               onClick={handleBack}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, color: "#755139", fontWeight: 700 }}
             >
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>
+            <Button
+              onClick={handleNext}
+              sx={{ mr: 1, color: "#755139", fontWeight: 700 }}
+            >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>

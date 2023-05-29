@@ -1,4 +1,11 @@
-import { Box, InputBase, Paper, Typography, Button } from "@mui/material";
+import {
+  Box,
+  InputBase,
+  Paper,
+  Typography,
+  Button,
+  IconButton,
+} from "@mui/material";
 import ReviewSlider from "./atoms/ReviewSlider";
 import ElementChart from "./molecules/ElementChart";
 
@@ -8,9 +15,13 @@ import List from "@mui/material/List";
 import getDataList from "@/data/getDataList";
 import DropDownList from "./molecules/DropDownList";
 import ElementDialog from "./organisms/ElementDialog";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 
 const ReviewBox = () => {
   const [dialog, setDialog] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [elementList, setElementList] = useState<string[]>([]);
+
   const {
     getElList1,
     getElList2,
@@ -20,11 +31,16 @@ const ReviewBox = () => {
     getElList6,
   } = getDataList();
 
-  const handleDeleteElement = () => {
-    console.log("요소 삭제");
+  const handleDeleteElement = (value: string) => {
+    const newList = elementList.filter((element) => element !== value);
+    setElementList(newList);
   };
 
-  const [open, setOpen] = useState(true);
+  const handleChangeList = (values: string[]) => {
+    setElementList(values);
+    setDialog(false);
+  };
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -34,7 +50,7 @@ const ReviewBox = () => {
       <Box
         sx={{
           display: "flex",
-          height: "27vh",
+          height: "30vh",
           justifyContent: "space-evenly",
           mb: 1,
           gap: 1,
@@ -42,29 +58,54 @@ const ReviewBox = () => {
       >
         <Paper
           sx={{
-            width: "43%",
+            width: "100%",
+            p: 1,
           }}
         >
-          <Button onClick={() => setDialog(true)}>DIALOG OPEN</Button>
-          <ElementDialog
-            dialogOpen={dialog}
-            openControll={() => setDialog(false)}
-          />
+          Diagram
         </Paper>
+      </Box>
+
+      <Box sx={{ mb: 1 }}>
         <Paper
           sx={{
-            width: "57%",
             py: 1,
+            display: "flex",
+            flexDirection: "column",
+            // gap: 0.5,
           }}
         >
-          <ReviewSlider title={"오렌지 껍질"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"사과"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"커피"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"식빵"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"꿀"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"담배"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"메이플시럽"} onClick={handleDeleteElement} />
-          <ReviewSlider title={"솔향"} onClick={handleDeleteElement} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              px: 1,
+              mb: 0.5,
+            }}
+          >
+            <Typography>Elements</Typography>
+            <IconButton
+              onClick={() => setDialog(true)}
+              sx={{ width: "24px", height: "24px" }}
+            >
+              <LibraryAddIcon sx={{ fontSize: "24px" }} />
+            </IconButton>
+          </Box>
+          {dialog && (
+            <ElementDialog
+              dialogOpen={dialog}
+              openControll={() => setDialog(false)}
+              handleChangeList={handleChangeList}
+              initList={elementList}
+            />
+          )}
+          {elementList.map((element, index) => (
+            <ReviewSlider
+              title={element}
+              onClick={handleDeleteElement}
+              key={index}
+            />
+          ))}
         </Paper>
       </Box>
       <Box sx={{ mb: 1 }}>
@@ -93,13 +134,14 @@ const ReviewBox = () => {
           />
         </Paper>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           height: "35vh",
           justifyContent: "center",
           width: "100%",
           margin: "auto",
           overflow: "auto",
+          color: "black",
         }}
       >
         <List
@@ -128,7 +170,7 @@ const ReviewBox = () => {
             onClick={handleClick}
             title={"식물"}
             list={getElList4}
-          />
+          /> 
           <DropDownList
             open={open}
             onClick={handleClick}
@@ -142,7 +184,7 @@ const ReviewBox = () => {
             list={getElList6}
           />
         </List>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
