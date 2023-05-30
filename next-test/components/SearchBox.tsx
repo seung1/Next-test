@@ -10,11 +10,14 @@ import {
 import { useState, KeyboardEvent } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import getDataList from "@/data/getDataList";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 const SearchBox = () => {
   const { getTestData } = getDataList();
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [focusPost, setFocusPost] = useState("asdasds");
 
   const enterKeyEventOnSearch = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
@@ -27,12 +30,12 @@ const SearchBox = () => {
 
   return (
     <>
-      <Box sx={{ backgroundColor: "#F2EDD7" }}>
+      <Box sx={{ backgroundColor: "#F2EDD7", color: "black" }}>
         <Typography
           variant="h5"
           sx={{ fontWeight: 700, my: 2, color: "#755139" }}
         >
-          Whiskey Gallery Review Search
+          리뷰 검색하기
         </Typography>
         <Box sx={{ mb: 2 }}>
           <Paper
@@ -66,12 +69,67 @@ const SearchBox = () => {
           sx={{ fontWeight: 700 }}
         >{` "${searchQuery}" 에 대한 검색 결과`}</Typography>
         <Box>
+          {focusPost && (
+            <Paper sx={{ overflow: "hidden", my: 2, p: 0.5, height: "45vh" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  px: 1,
+                  py: 0.5,
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    maxWidth: "70vw",
+                    display: "-webkit-box",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    WebkitLineClamp: 1,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
+                  {focusPost}
+                </Typography>
+                <Box sx={{ display: "flex", alignContent: "center", gap: 0.5 }}>
+                  <IconButton
+                    sx={{ width: "20px", height: "20px" }}
+                    onClick={() =>
+                      window.open(
+                        "https://m.dcinside.com/board/whiskey/319798",
+                        "_blank"
+                      )
+                    }
+                  >
+                    <AddCircleOutlineOutlinedIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{ width: "20px", height: "20px" }}
+                    onClick={() => setFocusPost("")}
+                  >
+                    <HighlightOffIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+              <iframe
+                // src="https://www.youtube.com/embed/Rrf8uQFvICE"/
+                src="https://m.dcinside.com/board/whiskey/319798"
+                width="100%"
+                height="100%"
+              />
+            </Paper>
+          )}
+        </Box>
+        <Box>
           <Box
             sx={{
               backgroundColor: "white",
               borderRadius: 1.5,
               width: { xs: "90vw", md: "42vw" },
-              height: { xs: "75vh", md: "78vh" },
+              height: focusPost
+                ? { xs: "17vh", md: "20vh" }
+                : { xs: "75vh", md: "78vh" },
             }}
           >
             <Box
@@ -92,12 +150,14 @@ const SearchBox = () => {
             </Box>
             <Box
               sx={{
-                height: { xs: "70vh", md: "73vh" },
+                height: focusPost
+                  ? { xs: "13vh", md: "16vh" }
+                  : { xs: "70vh", md: "73vh" },
                 overflow: "auto",
                 position: "relative",
                 p: "6px 6px 10px 12px",
                 "&::-webkit-scrollbar": {
-                  width: "12px",
+                  width: "6px",
                   backgroundColor: "lightgray",
                 },
                 "&::-webkit-scrollbar-thumb": {
@@ -108,7 +168,11 @@ const SearchBox = () => {
             >
               {[...getTestData()].map((item, index) => (
                 <Box key={index}>
-                  <ListItemButton title={item.title} sx={{ gap: 1, p: 0.5 }}>
+                  <ListItemButton
+                    title={item.title}
+                    sx={{ gap: 1, p: 0.5 }}
+                    onClick={() => setFocusPost(item.title)}
+                  >
                     <Box
                       sx={{
                         display: "-webkit-box",

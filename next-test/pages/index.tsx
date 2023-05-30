@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
@@ -40,6 +41,7 @@ export default function Home() {
           width: "100%",
           height: "100vh",
           justifyContent: "space-evenly",
+          overflow: "auto",
         }}
       >
         <Grid
