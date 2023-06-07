@@ -46,6 +46,7 @@ const DropDownList = ({
             display: "flex",
             fontSize: "10px",
             flexWrap: "wrap",
+            justifyContent: "center",
             gap: 1,
           }}
         >
