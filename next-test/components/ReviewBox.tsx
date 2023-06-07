@@ -15,7 +15,7 @@ import List from "@mui/material/List";
 import getDataList from "@/data/getDataList";
 import DropDownList from "./molecules/DropDownList";
 import ElementDialog from "./organisms/ElementDialog";
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 const ReviewBox = () => {
   const [dialog, setDialog] = useState(false);
@@ -41,30 +41,41 @@ const ReviewBox = () => {
     setDialog(false);
   };
 
+  const handleAddList = (value: string) => {
+    if (!elementList.includes(value) && elementList.length < 8) {
+      const newList = [...elementList, value];
+      setElementList(newList);
+    }
+  };
+
   const handleClick = () => {
     setOpen(!open);
   };
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          height: "30vh",
-          justifyContent: "space-evenly",
-          mb: 1,
-          gap: 1,
-        }}
-      >
-        <Paper
-          sx={{
-            width: "100%",
-            p: 1,
-          }}
-        >
-          Diagram
-        </Paper>
-      </Box>
+      {!open && (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              height: "30vh",
+              justifyContent: "space-evenly",
+              mb: 1,
+              gap: 1,
+            }}
+          >
+            <Paper
+              sx={{
+                width: "100%",
+                p: 1,
+              }}
+            >
+              Diagram
+            </Paper>
+          </Box>
+        </>
+      )}
 
       <Box sx={{ mb: 1 }}>
         <Paper
@@ -72,7 +83,6 @@ const ReviewBox = () => {
             py: 1,
             display: "flex",
             flexDirection: "column",
-            // gap: 0.5,
           }}
         >
           <Box
@@ -84,21 +94,7 @@ const ReviewBox = () => {
             }}
           >
             <Typography>Elements</Typography>
-            <IconButton
-              onClick={() => setDialog(true)}
-              sx={{ width: "24px", height: "24px" }}
-            >
-              <LibraryAddIcon sx={{ fontSize: "24px" }} />
-            </IconButton>
           </Box>
-          {dialog && (
-            <ElementDialog
-              dialogOpen={dialog}
-              openControll={() => setDialog(false)}
-              handleChangeList={handleChangeList}
-              initList={elementList}
-            />
-          )}
           {elementList.map((element, index) => (
             <ReviewSlider
               title={element}
@@ -108,83 +104,99 @@ const ReviewBox = () => {
           ))}
         </Paper>
       </Box>
+
       <Box sx={{ mb: 1 }}>
         <Paper
-          component="form"
+          onClick={() => handleClick()}
           sx={{
-            height: "82px",
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            "&::-webkit-scrollbar": {
-              width: "12px",
-              backgroundColor: "lightgray",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "gray", // 스크롤바 색상
-              borderRadius: "20px", // 스크롤바 모양
-            },
+            height: open ? "60vh" : "100px",
+            cursor: "pointer",
+            overflow: "hidden",
           }}
         >
-          <InputBase
-            placeholder="Comment"
-            sx={{ ml: 1, flex: 1 }}
-            multiline
-            maxRows={3}
-          />
+          <List
+            sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 1 }}
+          >
+            <DropDownList
+              open={open}
+              onClick={handleClick}
+              title={"이탄(피트)"}
+              list={getElList1}
+              addElement={handleAddList}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              onClick={handleClick}
+              title={"과일"}
+              list={getElList2}
+              addElement={handleAddList}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              onClick={handleClick}
+              title={"유제품"}
+              list={getElList3}
+              addElement={handleAddList}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              onClick={handleClick}
+              title={"식물"}
+              list={getElList4}
+              addElement={handleAddList}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              onClick={handleClick}
+              title={"향신료"}
+              list={getElList5}
+              addElement={handleAddList}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              onClick={handleClick}
+              title={"기타"}
+              list={getElList6}
+              addElement={handleAddList}
+              selectedList={elementList}
+            />
+          </List>
         </Paper>
       </Box>
-      {/* <Box
-        sx={{
-          height: "35vh",
-          justifyContent: "center",
-          width: "100%",
-          margin: "auto",
-          overflow: "auto",
-          color: "black",
-        }}
-      >
-        <List
-          sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 1 }}
-        >
-          <DropDownList
-            open={open}
-            onClick={handleClick}
-            title={"이탄(피트)"}
-            list={getElList1}
-          />
-          <DropDownList
-            open={open}
-            onClick={handleClick}
-            title={"과일"}
-            list={getElList2}
-          />
-          <DropDownList
-            open={open}
-            onClick={handleClick}
-            title={"유제품"}
-            list={getElList3}
-          />
-          <DropDownList
-            open={open}
-            onClick={handleClick}
-            title={"식물"}
-            list={getElList4}
-          /> 
-          <DropDownList
-            open={open}
-            onClick={handleClick}
-            title={"향신료"}
-            list={getElList5}
-          />
-          <DropDownList
-            open={open}
-            onClick={handleClick}
-            title={"기타"}
-            list={getElList6}
-          />
-        </List>
-      </Box> */}
+
+      {!open && (
+        <Box sx={{ mb: 1 }}>
+          <Paper
+            component="form"
+            sx={{
+              height: "82px",
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              "&::-webkit-scrollbar": {
+                width: "12px",
+                backgroundColor: "lightgray",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "gray", // 스크롤바 색상
+                borderRadius: "20px", // 스크롤바 모양
+              },
+            }}
+          >
+            <InputBase
+              placeholder="Comment"
+              sx={{ ml: 1, flex: 1 }}
+              multiline
+              maxRows={3}
+            />
+          </Paper>
+        </Box>
+      )}
     </Box>
   );
 };
