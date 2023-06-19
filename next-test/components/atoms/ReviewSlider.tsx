@@ -3,16 +3,20 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import CloseIcon from "@mui/icons-material/Close";
 
-function valuetext(value: number) {
+const valuetext = (value: number) => {
   return `${value}`;
-}
+};
 
 const ReviewSlider = ({
   title,
+  value,
   onClick,
+  handleChangeElementValue,
 }: {
   title: string;
+  value: number;
   onClick: (value: string) => void;
+  handleChangeElementValue: (id: string, newValue: number) => void;
 }) => {
   return (
     <Box
@@ -39,6 +43,11 @@ const ReviewSlider = ({
         marks
         min={1}
         max={5}
+        onChange={(e, value) => {
+          console.log(value);
+          if (typeof value === "number") handleChangeElementValue(title, value);
+        }}
+        value={value}
         sx={{ color: "#755139" }}
       />
       <CloseIcon
