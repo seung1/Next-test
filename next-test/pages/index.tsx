@@ -1,27 +1,11 @@
 /* eslint-disable react/no-children-prop */
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-import {
-  Box,
-  Button,
-  Chip,
-  CircularProgress,
-  Grid,
-  MenuItem,
-  Paper,
-  Select,
-  Skeleton,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
 import SearchBox from "@/components/SearchBox";
-import ReviewStepper from "@/components/organisms/ReviewStepper";
-import { useState } from "react";
+import ReviewBox from "@/components/ReviewBox";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -62,7 +46,7 @@ export default function Home() {
             display: isMobile ? (isSearchBox ? "none" : "block") : "block",
           }}
         >
-          <ReviewStepper />
+          <ReviewBox />
         </Grid>
 
         <Grid

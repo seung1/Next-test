@@ -1,133 +1,268 @@
-import { useState } from "react";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import ReviewBox from "../ReviewBox";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
-  Button,
-  Chip,
-  ChipProps,
-  Divider,
-  Grid,
-  IconButton,
   InputBase,
   Paper,
-  TextField,
   Typography,
+  Button,
+  IconButton,
+  Divider,
 } from "@mui/material";
+import ReviewSlider from "../atoms/ReviewSlider";
+import ElementChart from "../molecules/ElementChart";
 
-const steps = ["Nose", "Palate", "Finish"];
+import { useEffect, useMemo, useState } from "react";
 
-export default function HorizontalLinearStepper() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set<number>());
+import List from "@mui/material/List";
+import getDataList from "@/data/getDataList";
+import DropDownList from "../molecules/DropDownList";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
+import UnfoldLessIcon from "@mui/icons-material/UnfoldLess";
 
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
+interface ReviewType {
+  elementList: { name: string; value: number }[];
+  comment: string;
+}
+
+const ReviewStepper = ({
+  step,
+  review,
+  handleUpdateReview,
+}: {
+  step: number;
+  review: ReviewType;
+  handleUpdateReview: (step: number, review: ReviewType) => void;
+}) => {
+  const [open, setOpen] = useState(false);
+  const [elementList, setElementList] = useState<
+    { name: string; value: number }[]
+  >(review.elementList);
+  const [comment, setComment] = useState<string>(review.comment);
+
+  const nameList = useMemo(
+    () => elementList.map((element) => element.name),
+    [elementList]
+  );
+  const valueList = useMemo(
+    () => elementList.map((element) => element.value),
+    [elementList]
+  );
+
+  const {
+    getElList1,
+    getElList2,
+    getElList3,
+    getElList4,
+    getElList5,
+    getElList6,
+  } = getDataList();
+
+  const handleDeleteElement = (value: string) => {
+    const newList = elementList.filter((element) => element.name !== value);
+    setElementList(newList);
   };
 
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+  const handleClickElement = (name: string, value: number) => {
+    if (!nameList.includes(name) && elementList.length < 8) {
+      const newList = [...elementList, { name: name, value: value }];
+      setElementList(newList);
+      handleUpdateReview(step, {
+        ...review,
+        elementList: newList,
+      });
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    if (nameList.includes(name)) {
+      const newList = elementList.filter((element) => {
+        return element.name !== name;
+      });
+      setElementList(newList);
+      handleUpdateReview(step, {
+        ...review,
+        elementList: newList,
+      });
+    }
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const handleChangeElementValue = (id: string, newValue: number) => {
+    const newList = elementList.map((element) => {
+      if (element.name === id) element.value = newValue;
+      return element;
+    });
+    setElementList(newList);
+    handleUpdateReview(step, {
+      ...review,
+      elementList: newList,
+    });
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleOpenElements = () => {
+    setOpen(!open);
   };
 
   return (
-    <Box sx={{ width: "100%", pt: 2 }}>
-      <Typography
-        variant="h5"
-        sx={{ fontWeight: 700, mb: 2, color: "#755139" }}
-      >
-        리뷰 작성하기
-      </Typography>
-      <Paper
-        component="form"
+    <Box>
+      <Box
         sx={{
-          p: "0 4px",
           display: "flex",
-          alignItems: "center",
-          my: 2,
-          flex: 1,
+          gap: 1,
+          height: open ? 0 : "28vh",
+          transition: "height 0.5s",
+          overflow: "hidden",
         }}
       >
-        <InputBase placeholder="Whiskey" sx={{ ml: 1, flex: 2 }} />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <InputBase placeholder="ABV" sx={{ ml: 1, flex: 1 }} />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <InputBase placeholder="WB code" sx={{ ml: 1, flex: 1 }} />
-      </Paper>
-      <Stepper activeStep={activeStep} sx={{ mb: 2 }}>
-        {steps.map((label, index) => {
-          const stepProps: { completed?: boolean } = {};
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length ? (
-        <Box>
-          <Typography sx={{ mt: 2, mb: 1, color: "black" }}>
-            여기에 이제 사진으로 다운 받을 수 있게
-          </Typography>
+        <Paper sx={{ height: "27vh", p: 1 }}>
+          <Typography sx={{ px: 1 }}>Diagram</Typography>
+          <Divider sx={{ m: 0.5 }} />
+          <Box
+            sx={{
+              width: { xs: "180px", sm: "240px" },
+              display: "flex",
+              justifyContent: "center",
+              mt: nameList.length < 3 ? "4vh" : 0,
+            }}
+          >
+            {nameList.length > 0 && (
+              <ElementChart
+                id={`${step}`}
+                nameList={nameList}
+                valueList={valueList}
+              />
+            )}
+          </Box>
+        </Paper>
+
+        <Paper
+          sx={{
+            py: 1,
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            height: "27vh",
+          }}
+        >
+          <Typography sx={{ px: 1 }}>Elements</Typography>
+          <Divider sx={{ m: 0.5 }} />
+          {elementList.map((element, index) => (
+            <ReviewSlider
+              title={element.name}
+              value={element.value}
+              onClick={handleDeleteElement}
+              handleChangeElementValue={handleChangeElementValue}
+              key={index}
+            />
+          ))}
+        </Paper>
+      </Box>
+
+      <Box sx={{ mb: 1 }}>
+        <Paper sx={{ p: 1, pb: 0 }}>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              pr: 1,
             }}
           >
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button
-              onClick={handleReset}
-              sx={{ color: "#755139", fontWeight: 700, textTransform: "none" }}
-            >
-              Download
-            </Button>
+            <Typography sx={{ mx: 1 }}>Element List</Typography>
+            <IconButton onClick={handleOpenElements}>
+              {open ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
+            </IconButton>
           </Box>
-        </Box>
-      ) : (
-        <Box>
-          <ReviewBox />
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 1 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1, color: "#755139", fontWeight: 700 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button
-              onClick={handleNext}
-              sx={{ mr: 1, color: "#755139", fontWeight: 700 }}
-            >
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
-          </Box>
+          <Divider sx={{ m: 0.5 }} />
+          <List
+            sx={{
+              width: "100%",
+              bgcolor: "background.paper",
+              borderRadius: 1,
+              height: open ? "70vh" : "30vh",
+              transition: "height 0.5s",
+              overflow: "auto",
+            }}
+          >
+            <DropDownList
+              open={open}
+              title={"이탄(피트)"}
+              list={getElList1}
+              addElement={handleClickElement}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              title={"과일"}
+              list={getElList2}
+              addElement={handleClickElement}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              title={"유제품"}
+              list={getElList3}
+              addElement={handleClickElement}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              title={"식물"}
+              list={getElList4}
+              addElement={handleClickElement}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              title={"향신료"}
+              list={getElList5}
+              addElement={handleClickElement}
+              selectedList={elementList}
+            />
+            <DropDownList
+              open={open}
+              title={"기타"}
+              list={getElList6}
+              addElement={handleClickElement}
+              selectedList={elementList}
+            />
+          </List>
+        </Paper>
+      </Box>
+
+      {!open && (
+        <Box sx={{ mb: 1 }}>
+          <Paper
+            component="form"
+            sx={{
+              height: "82px",
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              "&::-webkit-scrollbar": {
+                width: "12px",
+                backgroundColor: "lightgray",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "gray", // 스크롤바 색상
+                borderRadius: "20px", // 스크롤바 모양
+              },
+            }}
+          >
+            <InputBase
+              placeholder="Comment"
+              value={comment}
+              onChange={(e) => {
+                setComment(e.target.value);
+                handleUpdateReview(step, {
+                  ...review,
+                  comment: e.target.value,
+                });
+              }}
+              sx={{ ml: 1, flex: 1 }}
+              multiline
+              maxRows={3}
+            />
+          </Paper>
         </Box>
       )}
     </Box>
   );
-}
+};
+
+export default ReviewStepper;

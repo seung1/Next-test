@@ -2,7 +2,7 @@ const getDataList = () => {
   //이탄
   const getElList1 = () => [
     { value: "요오드" },
-    { value: "크레졸" },
+    { value: "병원 소독약" },
     { value: "스모키" },
     { value: "생선" },
     { value: "해초" },

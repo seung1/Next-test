@@ -1,33 +1,76 @@
-import Chart from "chart.js/auto";
-import { useRef, useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import {
+  RadarController,
+  BarController,
+  RadialLinearScale,
+  LinearScale,
+  LineElement,
+  BarElement,
+  PointElement,
+  Chart,
+  CategoryScale,
+} from "chart.js";
 
-const ElementChart = () => {
-  const chartRef = useRef(null);
-
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "My First Dataset",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
-      },
-    ],
-  };
+const ElementChart = ({
+  id,
+  nameList,
+  valueList,
+}: {
+  id: string;
+  nameList: string[];
+  valueList: number[];
+}) => {
+  const isBarType = useMemo(() => {
+    return nameList.length < 3;
+  }, [nameList.length]);
 
   useEffect(() => {
-    if (chartRef !== undefined) chartRef.current = null;
-    if (chartRef && chartRef.current) {
-      const myChart = new Chart(chartRef.current, {
-        type: "line",
-        data: data,
-      });
-    }
-  }, [chartRef]);
-
-  return <canvas ref={chartRef} />;
+    Chart.register(
+      RadarController,
+      BarController,
+      RadialLinearScale,
+      LinearScale,
+      LineElement,
+      BarElement,
+      PointElement,
+      CategoryScale
+    );
+    var myChart = new Chart(id, {
+      type: isBarType ? "bar" : "radar",
+      data: {
+        labels: nameList,
+        datasets: [
+          {
+            data: valueList,
+            label: "Applied",
+            borderColor: "#3e95cd",
+            backgroundColor: "rgb(62,149,205,0.1)",
+            borderWidth: 2,
+            pointBackgroundColor: "rgb(255, 99, 132)",
+            pointBorderColor: "#fff",
+            pointHoverBorderColor: "rgb(255, 99, 132)",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 5,
+            ticks: { stepSize: 1 },
+          },
+          ...(isBarType && {
+            y: {
+              suggestedMin: 0,
+              suggestedMax: 6,
+              ticks: { stepSize: 1 },
+            },
+          }),
+        },
+      },
+    });
+    return () => myChart.destroy();
+  }, [id, isBarType, nameList, valueList]);
+  return <canvas id={id}></canvas>;
 };
-
 export default ElementChart;
