@@ -1,3 +1,4 @@
+import { useState, KeyboardEvent } from "react";
 import {
   Box,
   Divider,
@@ -7,11 +8,11 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { useState, KeyboardEvent } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import getDataList from "@/data/getDataList";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+
+import getDataList from "@/data/getDataList";
 
 const SearchBox = () => {
   const { getTestData } = getDataList();

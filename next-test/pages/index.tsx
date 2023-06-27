@@ -1,13 +1,12 @@
 /* eslint-disable react/no-children-prop */
 import { useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "@/styles/Home.module.css";
 import { Box, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
-import SearchBox from "@/components/SearchBox";
-import ReviewBox from "@/components/ReviewBox";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import SearchIcon from "@mui/icons-material/Search";
+
+import ReviewBox from "@/components/ReviewBox";
+import SearchBox from "@/components/SearchBox";
 
 export default function Home() {
   const theme = useTheme();

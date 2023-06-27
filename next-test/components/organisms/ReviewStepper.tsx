@@ -1,22 +1,20 @@
+import { useMemo, useState } from "react";
 import {
   Box,
   InputBase,
   Paper,
   Typography,
-  Button,
   IconButton,
   Divider,
 } from "@mui/material";
-import ReviewSlider from "../atoms/ReviewSlider";
-import ElementChart from "../molecules/ElementChart";
-
-import { useEffect, useMemo, useState } from "react";
-
 import List from "@mui/material/List";
-import getDataList from "@/data/getDataList";
-import DropDownList from "../molecules/DropDownList";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import UnfoldLessIcon from "@mui/icons-material/UnfoldLess";
+
+import getDataList from "@/data/getDataList";
+import ReviewSlider from "../atoms/ReviewSlider";
+import DropDownList from "../molecules/DropDownList";
+import ElementChart from "../molecules/ElementChart";
 
 interface ReviewType {
   elementList: { name: string; value: number }[];
