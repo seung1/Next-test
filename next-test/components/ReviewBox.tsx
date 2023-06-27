@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import ReviewStepper from "./organisms/ReviewStepper";
 import {
   Box,
   Button,
   Divider,
   InputBase,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
+
 import ElementChart from "./molecules/ElementChart";
+import ReviewStepper from "./organisms/ReviewStepper";
 
 interface ReviewType {
   elementList: { name: string; value: number }[];

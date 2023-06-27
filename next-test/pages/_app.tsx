@@ -1,8 +1,6 @@
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
-import Chart from "chart.js/auto";
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;

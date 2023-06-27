@@ -1,16 +1,5 @@
-import {
-  Box,
-  Collapse,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useMemo } from "react";
+import { Box, List, ListItemButton, Typography } from "@mui/material";
 
 const DropDownList = ({
   open,
