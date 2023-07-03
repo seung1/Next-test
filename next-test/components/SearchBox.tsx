@@ -74,7 +74,16 @@ const SearchBox = () => {
           </>
         )}
         {focusPost && (
-          <Paper sx={{ overflow: "hidden", my: 2, p: 0.5, height: "65vh" }}>
+          <Paper
+            sx={{
+              overflow: "hidden",
+              my: 2,
+              p: 0.5,
+              height: "60vh",
+              width: "110%",
+              ml: "-5%",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -117,7 +126,6 @@ const SearchBox = () => {
               </Box>
             </Box>
             <iframe
-              // src="https://www.youtube.com/embed/Rrf8uQFvICE"
               src="https://m.dcinside.com/board/whiskey/319798"
               width="100%"
               height="100%"
@@ -132,7 +140,7 @@ const SearchBox = () => {
               width: { xs: "90vw", md: "42vw" },
               height: focusPost
                 ? { xs: "17vh", md: "20vh" }
-                : { xs: "75vh", md: "78vh" },
+                : { xs: "65vh", md: "78vh" },
             }}
           >
             <Box
@@ -155,7 +163,7 @@ const SearchBox = () => {
               sx={{
                 height: focusPost
                   ? { xs: "13vh", md: "16vh" }
-                  : { xs: "70vh", md: "73vh" },
+                  : { xs: "60vh", md: "73vh" },
                 overflow: "auto",
                 position: "relative",
                 p: "6px 6px 10px 12px",

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useState } from "react";
 import Head from "next/head";
-import { Box, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Fab, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -48,49 +48,27 @@ export default function Home() {
           <ReviewBox />
         </Grid>
 
-        <Grid
-          item
-          xs={10}
-          sx={{
-            display: "flex",
-            position: "absolute",
-            bottom: "1vh",
-            width: "90vw",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {isMobile && (
-            <Paper
-              onClick={() => setIsSearchBox(!isSearchBox)}
-              sx={{
-                display: "flex",
-                position: "absolute",
-                bottom: "10px",
-                p: "4px 12px",
-                alignItems: "center",
-                gap: 1,
-                cursor: "pointer",
-                width: "150px",
-                fontSize: "14px",
-              }}
-            >
-              {isSearchBox ? (
-                <>
-                  <BorderColorIcon
-                    sx={{ display: "block", fontSize: "16px" }}
-                  />
-                  <Box sx={{ mx: "auto" }}>리뷰 작성하기</Box>
-                </>
-              ) : (
-                <>
-                  <SearchIcon sx={{ display: "block", fontSize: "16px" }} />
-                  <Box sx={{ mx: "auto" }}>검색하기</Box>
-                </>
-              )}
-            </Paper>
-          )}
-        </Grid>
+        {isMobile && (
+          <Fab
+            onClick={() => setIsSearchBox(!isSearchBox)}
+            sx={{
+              position: "fixed",
+              bottom: "30px",
+              backgroundColor: "#F2EDD7",
+              ":hover": { backgroundColor: "#F2EDD7" },
+            }}
+          >
+            {isSearchBox ? (
+              <BorderColorIcon
+                sx={{ display: "block", fontSize: "20px", color: "#755139" }}
+              />
+            ) : (
+              <SearchIcon
+                sx={{ display: "block", fontSize: "28px", color: "#755139" }}
+              />
+            )}
+          </Fab>
+        )}
       </Grid>
     </>
   );

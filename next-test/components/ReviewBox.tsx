@@ -8,20 +8,22 @@ import {
   Divider,
   InputBase,
   Paper,
+  StepIcon,
   Typography,
 } from "@mui/material";
 
-import ElementChart from "./molecules/ElementChart";
 import ReviewStepper from "./organisms/ReviewStepper";
+import Result from "./result";
 
 interface ReviewType {
   elementList: { name: string; value: number }[];
   comment: string;
+  score: string;
 }
 
 const ReviewBox = () => {
   const steps = ["Nose", "Palate", "Finish"];
-  const initReview = { elementList: [], comment: "" };
+  const initReview = { elementList: [], comment: "", score: "" };
 
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
@@ -68,13 +70,6 @@ const ReviewBox = () => {
     else if (step === 2) setThridStepReview({ ...thridStepReview, ...review });
   };
 
-  const getNameList = (review: ReviewType) => {
-    return review.elementList.map((element) => element.name);
-  };
-  const getValueList = (review: ReviewType) => {
-    return review.elementList.map((element) => element.value);
-  };
-
   return (
     <Box sx={{ width: "100%", pt: 2 }}>
       <Typography
@@ -83,109 +78,75 @@ const ReviewBox = () => {
       >
         리뷰 작성하기
       </Typography>
-      <Paper
-        component="form"
-        sx={{
-          p: "0 4px",
-          display: "flex",
-          alignItems: "center",
-          my: 2,
-          flex: 1,
-        }}
-      >
-        <InputBase
-          placeholder="Whiskey"
-          value={whiskey}
-          onChange={(e) => setWhiskey(e.target.value)}
-          sx={{ ml: 1, flex: 2 }}
-        />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <InputBase
-          placeholder="ABV"
-          value={abv}
-          onChange={(e) => setAbv(e.target.value)}
-          sx={{ ml: 1, flex: 1 }}
-        />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <InputBase
-          placeholder="WB code"
-          value={wbCode}
-          onChange={(e) => setWbCode(e.target.value)}
-          sx={{ ml: 1, flex: 1 }}
-        />
-      </Paper>
-      <Stepper activeStep={activeStep} sx={{ mb: 2 }}>
-        {steps.map((label, index) => {
-          const stepProps: { completed?: boolean } = {};
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel
-                onClick={(e) => setActiveStep(index)}
-                sx={{ cursor: "pointer" }}
-              >
-                {label}
-              </StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
       {activeStep === 3 ? (
-        <Box>
-          <Paper sx={{ p: 1 }}>
-            <Typography sx={{ mb: 1, color: "black" }}>
-              Whiskey Review
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Box sx={{ width: "40%" }}>
-                <ElementChart
-                  id="1"
-                  nameList={getNameList(firstStepReview)}
-                  valueList={getValueList(firstStepReview)}
-                />
-              </Box>
-              <Box>{firstStepReview.comment}</Box>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Box sx={{ width: "40%" }}>
-                <ElementChart
-                  id="2"
-                  nameList={getNameList(secondStepReview)}
-                  valueList={getValueList(secondStepReview)}
-                />
-              </Box>
-              <Box>{secondStepReview.comment}</Box>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Box sx={{ width: "40%" }}>
-                <ElementChart
-                  id="3"
-                  nameList={getNameList(thridStepReview)}
-                  valueList={getValueList(thridStepReview)}
-                />
-              </Box>
-              <Box>{thridStepReview.comment}</Box>
-            </Box>
-          </Paper>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button
-              onClick={handleReset}
-              sx={{ color: "#755139", fontWeight: 700, textTransform: "none" }}
-            >
-              Download
-            </Button>
-          </Box>
-        </Box>
+        <Result
+          handleReset={handleReset}
+          handleBack={handleBack}
+          firstStepReview={firstStepReview}
+          secondStepReview={secondStepReview}
+          thridStepReview={thridStepReview}
+          whiskey={whiskey}
+          abv={abv}
+          wbCode={wbCode}
+        />
       ) : (
         <Box>
+          <Paper
+            component="form"
+            sx={{
+              p: "0 4px",
+              display: "flex",
+              alignItems: "center",
+              my: 2,
+              flex: 1,
+            }}
+          >
+            <InputBase
+              placeholder="Whiskey"
+              value={whiskey}
+              onChange={(e) => setWhiskey(e.target.value)}
+              sx={{ ml: 1, flex: 2 }}
+            />
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <InputBase
+              placeholder="ABV"
+              value={abv}
+              onChange={(e) => setAbv(e.target.value)}
+              sx={{ ml: 1, flex: 1 }}
+            />
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <InputBase
+              placeholder="WB code"
+              value={wbCode}
+              onChange={(e) => setWbCode(e.target.value)}
+              sx={{ ml: 1, flex: 1 }}
+            />
+          </Paper>
+          <Stepper activeStep={activeStep} sx={{ mb: 2 }}>
+            {steps.map((label, index) => {
+              const stepProps: { completed?: boolean } = {};
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step
+                  key={label}
+                  {...stepProps}
+                  sx={{
+                    circle: { color: "#755139" },
+                    path: { color: "#755139" },
+                  }}
+                >
+                  <StepLabel
+                    onClick={(_) => setActiveStep(index)}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    {label}
+                  </StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
           {activeStep === 0 && (
             <ReviewStepper
               step={0}
@@ -208,7 +169,7 @@ const ReviewBox = () => {
             />
           )}
 
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 1 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 1, mb: 5 }}>
             <Button
               color="inherit"
               disabled={activeStep === 0}

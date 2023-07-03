@@ -43,8 +43,8 @@ const ElementChart = ({
           {
             data: valueList,
             label: "Applied",
-            borderColor: "#3e95cd",
-            backgroundColor: "rgb(62,149,205,0.1)",
+            borderColor: "#755139",
+            backgroundColor: "rgb(117,81,57,0.3)",
             borderWidth: 2,
             pointBackgroundColor: "rgb(255, 99, 132)",
             pointBorderColor: "#fff",
