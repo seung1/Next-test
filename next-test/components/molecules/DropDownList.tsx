@@ -23,23 +23,24 @@ const DropDownList = ({
     <Box
       sx={{
         backgroundColor: "#F2EDD7",
-        p: 1,
+        p: 0.5,
         pb: 0,
         borderRadius: 2,
         mb: "8px",
       }}
     >
-      <Typography variant="subtitle2" sx={{ fontWeight: 700, pl: 1 }}>
+      <Typography
+        sx={{ fontSize: { xs: "12px", sm: "16px" }, fontWeight: 700, pl: 1 }}
+      >
         {title}
       </Typography>
       <List
         component="div"
         sx={{
           display: "inline-flex",
-          fontSize: "10px",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: 1,
+          gap: 0.7,
         }}
       >
         {[...list()].map((item, idx) => (
@@ -47,9 +48,9 @@ const DropDownList = ({
             key={idx}
             sx={{
               p: 0.5,
-              height: "24px",
-              minWidth: "72px",
-              maxWidth: "72px",
+              height: { xs: "20px", sm: "24px" },
+              minWidth: { xs: "56px", sm: "72px" },
+              maxWidth: { xs: "56px", sm: "72px" },
               backgroundColor: nameList.includes(item.value)
                 ? "#755139"
                 : "white",
@@ -64,8 +65,8 @@ const DropDownList = ({
             onClick={() => addElement(item.value, 3)}
           >
             <Typography
-              variant="caption"
               sx={{
+                fontSize: { xs: "10px", sm: "12px" },
                 mx: "auto",
                 fontWeight: nameList.includes(item.value) ? 700 : 500,
               }}
