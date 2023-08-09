@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useState } from "react";
 import Head from "next/head";
-import { Box, Fab, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
+import { Fab, Grid, useMediaQuery, useTheme } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import SearchIcon from "@mui/icons-material/Search";
 

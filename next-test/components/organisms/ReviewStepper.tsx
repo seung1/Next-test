@@ -109,7 +109,7 @@ const ReviewStepper = ({
         <Grid
           container
           spacing={1}
-          xs={13}
+          columns={13}
           sx={{
             height: "100%",
             transition: "height 0.5s",

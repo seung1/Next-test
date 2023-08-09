@@ -58,12 +58,12 @@ export default function Result({
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = `whiskeyReview-${todayDate()}.png`;
+    link.download = `${todayDate()}_${whiskey}.png`;
     link.click();
   };
 
   return (
-    <Box>
+    <Box sx={{ mb: 14 }}>
       <Box
         id="your-component-id"
         sx={{
