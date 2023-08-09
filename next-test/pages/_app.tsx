@@ -1,9 +1,11 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
+  const queryClient = new QueryClient();
 
   return (
     <>
@@ -20,7 +22,9 @@ const App = (props: AppProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </>
   );
 };
